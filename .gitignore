@@ -1,8 +1,14 @@
+
+
 # Ignore all folders except "htdocs"
 
 /**/
 !/htdocs/
 !/htdocs/**/
+
+# Ignore all folders except "nihcImage"
+
+!/nihcImage/
 
 # Ignore files with specific extensions
 
