@@ -1,7 +1,7 @@
 <?php
 
 function getConnection() {
-    $conn = new \PDO("mysql:host=localhost;dbname=swjb;charset=utf8mb4", "root", "", [
+    $conn = new \PDO("mysql:host=localhost;dbname=Gyeonggi2021;charset=utf8mb4", "root", "", [
        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_OBJ,
        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
     ]);

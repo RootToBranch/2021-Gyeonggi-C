@@ -5,7 +5,7 @@ class DB
     public static function getConnection()
     {
         if(is_null(self::$db)) 
-            self::$db = new \PDO("mysql:host=localhost;dbname=swjb;charset=utf8mb4", "root", '');
+            self::$db = new \PDO("mysql:host=localhost;dbname=Gyeonggi2021;charset=utf8mb4", "root", '');
         return self::$db;
     }
 
