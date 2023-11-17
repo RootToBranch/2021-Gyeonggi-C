@@ -21,7 +21,7 @@
     // $endPage = 
 
 
-    $startIdx = $page;
+    $startIdx = $page - 1;
 
     $list = fetchAll("SELECT L.ccbaMnm1, D.imageUrl 
                 FROM nihlist as L
@@ -185,7 +185,7 @@
                         <div class="page">
                             <?php foreach ($list as $value): ?>
                                 <div data-id="${ccbaKdcd}_${ccbaCtcd}_${ccbaAsno}">
-                                    <img src="./xml/nihcImage/<?= $value->imageUrl ?>" alt="img" class="">
+                                    <img src="data:image/jpeg;base64,<?php echo base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); ?>" alt="img" class="">
                                     <span><?= $value->ccbaMnm1 ?></span>
                                 </div>
                             <?php endforeach; ?>
