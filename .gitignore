@@ -1,6 +1,7 @@
-
+# Ignore all folders except "htdocs"
 
 /**/
+!/htdocs/
 
 # Ignore files with specific extensions
 
