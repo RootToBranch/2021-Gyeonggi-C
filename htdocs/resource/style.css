@@ -1,0 +1,933 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+}
+
+a, a:link, a:visited {
+    color: black;
+    text-decoration: none;
+}
+a.disabled {
+    pointer-events: none;
+    color: #d1d1d1;
+}
+
+:root {
+    --currentWidth: 1280px;
+    --mainHeaderHeight: 85px;
+    --subHeaderHeight: 50px;
+}
+
+.outer_layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    z-index: 15;
+}
+.inner_layout {
+    display: flex;
+    align-items: center;
+    width: var(--currentWidth);
+}
+
+/* section_layout_type1 */
+
+.section_layout_type1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 1920px;
+    transform: translateY(20px);
+}
+.section_layout_type1 .inner {width: var(--currentWidth);}
+.section_layout_type1 .title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    border-bottom: 2px solid black;
+}
+
+.section_layout_type1 .title p > a:last-child {
+    font-weight: 600;
+}
+
+/* section_layout_type1 */
+
+.row-100 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+/* 공통 클래스 선언 */
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+
+
+.header {
+    position: fixed;
+    background-color: white;
+}
+
+
+
+
+body .header_inner, body .header_inner > .menu_list {
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: var(--mainHeaderHeight);
+}
+
+
+
+body .header_inner > .menu_list > label {
+    height: var(--mainHeaderHeight) !important;
+}
+body .sub_header_outer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100vw;
+    height: var(--subHeaderHeight);
+    background-color: rgb(221, 221, 221);
+    
+    opacity: 0;
+    pointer-events: none;
+
+    top: var(--mainHeaderHeight);
+    z-index: 1;
+}
+body .sub_header_inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    /* align-items: center; */
+    height: var(--subHeaderHeight);
+}
+
+body .header_inner > .menu_list,
+body .sub_header_inner .sub_menu_list {
+    width: 800px;
+}
+
+body .header_inner > .menu_list > label,
+body .sub_header_inner > .sub_menu_list > label,
+body .sub_header_inner > .sub_menu_list a {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 18px;
+    letter-spacing: -1.5px;
+    font-weight: 600;
+
+    height: var(--subHeaderHeight);
+    transition: letter-spacing 0.25s;
+}
+body .header_inner > .menu_list > label > a {
+    transition: 0.25s letter-spacing, 0.25s color;
+}
+body .header_inner > .menu_list > label:hover > a {
+    letter-spacing:-0.5px;
+    color: rgb(78, 157, 254);
+}
+
+body .sub_header_inner > .sub_menu_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    
+    width: 100vw;
+    height: var(--subHeaderHeight);
+}
+body .sub_header_inner > .sub_menu_list > div {
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+    
+    width: 100vw;
+    opacity: 0;
+    pointer-events: none;
+}
+
+body .sub_header_inner > .sub_menu_list > div a {
+    margin: 0 20px;
+}
+body .sub_header_inner > 
+.sub_menu_list > div > a:hover + div {display: flex;}
+
+body .sub_header_inner > 
+.sub_menu_list .sub_menu_contents {
+    position: absolute;
+    display: flex;
+}
+body .sub_header_inner > 
+.sub_menu_list .sub_menu_contents::before {
+    position: absolute;
+    content: '';
+    width: 100vw;
+    height: var(--subHeaderHeight);
+    background-color: rgb(239, 239, 239);
+
+    left: 0%;
+    z-index: -1;
+    /* transform: translateX(-50%); */
+}
+.sub_header_outer, .sub_menu_list > div {
+    transition: 0.25s all;
+}
+/* .header:hover ~ .sub_header_outer {
+    opacity: 1;
+    pointer-events: all;
+} */
+body .main_menu_checkbox:hover ~ .outer_layout, 
+.sub_header_outer:hover,
+body #main_menu_2:hover ~ .outer_layout .sub_menu_2, .sub_menu_2:hover,
+body #main_menu_3:hover ~ .outer_layout .sub_menu_3, .sub_menu_3:hover,
+body #main_menu_4:hover ~ .outer_layout .sub_menu_4, .sub_menu_4:hover,
+body #main_menu_5:hover ~ .outer_layout .sub_menu_5, .sub_menu_5:hover,
+body #main_menu_6:hover ~ .outer_layout .sub_menu_6, .sub_menu_6:hover {
+    opacity: 1 !important;
+    pointer-events: all !important;
+}
+
+
+.depth3 > .sub_menu_contents {
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.25s all;
+}
+
+
+/* depth3을 위한 코드 */
+body .sub_menu_list .depth3 > a:hover + .sub_menu_contents,
+body .sub_menu_list .depth3 > a + .sub_menu_contents:hover {
+    opacity: 1;
+    pointer-events: all;
+}
+
+body .logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    width: 340px;
+    height: var(--mainHeaderHeight);
+    margin-right: 20px;
+
+    background-image: url('../resource/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body .header label[for="utilites_checked"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body .header label[for="utilites_checked"] > div {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 200px;
+    height: 140px;
+
+    margin-top: 40px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid rgba(0, 0, 0, 0.068);
+    border-radius: 8px;
+    z-index: 2;
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.25s opacity;
+}
+body #utilites_checked:checked ~ .header 
+label[for="utilites_checked"] > div  {
+    opacity: 1;
+    pointer-events: all;
+}
+body #utilites_checked:checked ~ .header .utilites::after {
+    transform: rotate(180deg) scale(1.3);
+}
+body .header label[for="utilites_checked"] > div > * {
+    width: 120px;
+    height: 24px;
+
+    text-align: center;
+    margin: 5px 0;
+    font-weight: 600;
+    letter-spacing: -2px;
+
+    z-index: 2;
+}
+
+body .header .utilites {
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-image: url('../resource/cogs-solid.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+body .header .utilites::after {
+    content: '▾';
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+
+    top: 30px;
+    right: 0;
+    transform: scale(1.3);
+    transition: all 0.25s;
+}
+
+body .window {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.182);
+    z-index: 30;
+}
+body #lang_change:checked ~ .lang_change_window {
+    display: flex;
+}
+body .window > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    height: 500px;
+    background-color: aliceblue;
+    border-radius: 13px;
+    box-shadow: 0px 0px 1px 0px black;
+
+    padding: 40px;
+}
+body .window > div > label {
+    display: flex;
+}
+body .window > div > label > span {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+body .window > div > label:last-child  {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    transform: scale(2.5);
+    
+    margin-right: -650px;
+    cursor: pointer;
+}
+
+body .select_list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    background-color: white;
+    box-shadow: 0px 0px 1px 0px black;
+    border-radius: 10px;
+
+    margin-top: 40px;
+    overflow: hidden;
+}
+body .select_list > a {
+    width: 220px;
+    padding: 10px 0;
+    text-align: center;
+}
+body .select_list > a:hover {
+    background-color: rgba(0, 0, 0, 0.179);
+}
+body .select_list > a:active {
+    background-color: rgba(0, 0, 0, 0.338);
+}
+
+/* ------------------------- */
+
+.sub_header_outer ~ div {
+    margin-top: var(--mainHeaderHeight);
+}
+.visualSlide, .visualImg_list {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 1920px;
+    height: calc(1080px - var(--mainHeaderHeight));
+    overflow: hidden;
+}
+
+.visualImg_list > div{
+    width: 1920px;
+    height: calc(1080px - var(--mainHeaderHeight));
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+
+    overflow: hidden;
+    transition: opacity 0.25s;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    /* animation-delay: 1.25s; */
+}
+
+.visualImg_list > div > img {
+    
+    width: 1920px;
+    height: calc(1080px - var(--mainHeaderHeight));
+    object-fit: cover;
+}
+.status_bar > div {
+    transition: background-color 0.25s;
+    animation-duration: 8s;
+    animation-iteration-count: infinite;
+    /* animation-delay: 1.25s; */
+}
+/* .status_bar label.sub {
+    animation-duration: 6s;
+    animation-iteration-count: infinite;
+} */
+
+#slide_3-1:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_3-1_first}
+#slide_3-1_copy:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_3-1_copy_first; animation-range-start: entry 33.3333%;}
+#slide_3-1:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_3-1_second}
+#slide_3-1_copy:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_3-1_copy_second; animation-range-start: entry 33.3333%;}
+#slide_3-1:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_3-1_third}
+#slide_3-1_copy:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_3-1_copy_third; animation-range-start: entry 33.3333%;}
+
+
+
+#slide_1-2:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_1-2_first}
+#slide_1-2_copy:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_1-2_copy_first; animation-range-start: entry 33.3333%;}
+
+#slide_1-2:checked ~ .status_bar > .slide_3-1,
+#slide_1-2_copy:checked ~ .status_bar > .slide_3-1 {animation-name: statusbarColor_1-2_first}
+#slide_1-2:checked ~ .status_bar > .slide_1-2,
+#slide_1-2_copy:checked ~ .status_bar > .slide_1-2 {animation-name: statusbarColor_1-2_second}
+#slide_1-2:checked ~ .status_bar > .slide_2-3,
+#slide_1-2_copy:checked ~ .status_bar > .slide_2-3 {animation-name: statusbarColor_1-2_third}
+
+#slide_1-2:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_1-2_second}
+#slide_1-2_copy:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_1-2_copy_second; animation-range-start: entry 33.3333%;}
+#slide_1-2:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_1-2_third}
+#slide_1-2_copy:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_1-2_copy_third; animation-range-start: entry 33.3333%;}
+
+#slide_1-2:checked ~ .status_bar .sub.slide_2-1 {animation-name: slide_2-1_statusbar_1;}
+#slide_1-2_copy:checked ~ .status_bar .sub.slide_2-1 {animation-name: slide_2-1_statusbar_1_copy;}
+
+
+#slide_2-3:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_2-3_first}
+#slide_2-3_copy:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_2-3_copy_first; animation-range-start: entry 33.3333%;}
+#slide_2-3:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_2-3_second}
+#slide_2-3_copy:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_2-3_copy_second; animation-range-start: entry 33.3333%;}
+#slide_2-3:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_2-3_third}
+#slide_2-3_copy:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_2-3_copy_third; animation-range-start: entry 33.3333%;}
+
+#slide_2-3:checked ~ .status_bar .sub.slide_2-1 {animation-name: slide_2-1_statusbar_1;}
+#slide_2-3_copy:checked ~ .status_bar .sub.slide_2-1 {animation-name: slide_2-1_statusbar_1_copy;}
+
+
+#slide_2-1:checked ~ .visualImg_list > .visualImg_item1 {animation-name: slide_2-1_first}
+#slide_2-1:checked ~ .visualImg_list > .visualImg_item2 {animation-name: slide_2-1_second}
+#slide_2-1:checked ~ .visualImg_list > .visualImg_item3 {animation-name: slide_2-1_third}
+
+
+@keyframes opacitysec {
+    0%,33.3333% {
+        display: none;
+        opacity: 0;
+    }
+    66.6666%, 100% {
+        opacity: 1;
+    }
+}
+/* slide_n-k_naming keyframes는 n-k는 진행방향 및 상태를 보여주고, 
+k는 opacity가 활성화 되는 visual image를 알려줌 */
+
+/* naming에 statusbar가 들어가는 경우는 이 규칙이 적용 안될 수 있음 */
+
+/* 구조 초기화, opacity로 자연스럽게 구현 포기, 일반적인 구현으로 진행 */
+/* 위의 규칙들은 파기되지만 나중을 위한 참고용으로 남겨놓음 + 예시코드 */
+
+/* @keyframes slide_1-2_first {
+    0% {opacity: 1;} /* visual2 
+    33.3333% {opacity: 0; pointer-events: none;} /* visual3 
+    66.6666% {opacity: 0; pointer-events: none;} /* visual1 
+    100% {opacity: 1;} /* visual2 
+} */
+
+
+@keyframes slide_1-2_first {
+    0% {opacity: 0;} /* visual2 */
+    33.3333% {opacity: 0;} /* visual3 */
+    66.6666% {opacity: 1;} /* visual1 */
+    100% {opacity: 0;} /* visual2 */
+}
+@keyframes slide_1-2_second {
+    0% {opacity: 1;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes slide_1-2_third {
+    0% {opacity: 0;}
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+/* @keyframes slide_2-1_statusbar_1 { 
+    2에서 1로가는 슬라이드 z-index 설정 애니메이션 
+    0% {z-index: -1; }
+    33.3333% {z-index: 3;background-color: aqua;}
+    66.6666% {z-index: -1;}
+    100% {z-index: -1;}
+} 
+    원래는 "slide_2-1_statusbar_n" 이런 형식으로 만들어서 각각의 슬라이드에 넣으려고 했는데
+    위의 계획이 파괴됨에 따라 이 키프레임도 파기
+*/
+
+
+@keyframes slide_1-2_copy_first {
+    0% {opacity: 0;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes slide_1-2_copy_second {
+    0% {opacity: 1;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes slide_1-2_copy_third {
+    0% {opacity: 0;}
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+/* background-color: rgb(0, 115, 255); */
+@keyframes statusbarColor_1-2_first {
+    0% {background-color: white;}
+    33.3333% {background-color: white;}
+    66.6666% {background-color: rgb(0, 115, 255);}
+    100% {background-color: white;}
+}
+@keyframes statusbarColor_1-2_second {
+    0% {background-color: rgb(0, 115, 255);}
+    33.3333% {background-color: white}
+    66.6666% {background-color: white}
+    100% {background-color: rgb(0, 115, 255);}
+}
+@keyframes statusbarColor_1-2_third {
+    0% {background-color: white;}
+    33.3333% {background-color: rgb(0, 115, 255);;}
+    66.6666% {background-color: white;}
+    100% {background-color: white;}
+}
+
+@keyframes slide_2-3_first {
+    0% {opacity: 0;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes slide_2-3_second {
+    0% {opacity: 1; }
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes slide_2-3_third {
+    0% {opacity: 0;}
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+/* @keyframes slide_2-1_statusbar_2 { 
+    /* 2에서 1로가는 슬라이드 z-index 설정 애니메이션 
+    0% {z-index: 3; background-color: aqua;}
+    33.3333% {z-index: -1;}
+    66.6666% {z-index: -1;}
+    100% {z-index: 3;}
+} */
+
+@keyframes slide_2-3_copy_first {
+    0% {opacity: 0;}
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+@keyframes slide_2-3_copy_second {
+    0% {opacity: 0; }
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes slide_2-3_copy_third {
+    0% {opacity: 1;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes slide_3-1_first {
+    0% {opacity: 1;}
+    33.3333% {opacity: 0;} /* visual1 */
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes slide_3-1_second {
+    0% {opacity: 0; }
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+@keyframes slide_3-1_third {
+    0% {opacity: 0;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@keyframes slide_3-1_copy_first {
+    0% {opacity: 0;}
+    33.3333% {opacity: 1;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 0;}
+}
+@keyframes slide_3-1_copy_second {
+    0% {opacity: 0; }
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes slide_3-1_copy_third {
+    0% {opacity: 1;}
+    33.3333% {opacity: 0;}
+    66.6666% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+/* 
+@keyframes slide_2-1_first {
+    0% {opacity: 1; pointer-events: none;}
+    33.3333% {opacity: 1; pointer-events: none;} /* visual1 
+    66.6666% {opacity: 0;}
+    100% {opacity: 0; pointer-events: none; }
+}
+@keyframes slide_2-1_second {
+    0% {opacity: 1; } /* 이부분을 처음에는 0으로 했다가 후에 1로 할 수 있는 방법이 없읋까?
+    33.3333% {opacity: 0; pointer-events: none;}
+    66.6666% {opacity: 1; pointer-events: none;}
+    100% {opacity: 0; }
+}
+@keyframes slide_2-1_third {
+    0% {opacity: 0; pointer-events: none;} 
+    33.3333% {opacity: 0; }
+    66.6666% {opacity: 0; pointer-events: none;}
+    100% {opacity: 1; pointer-events: none; }
+} */
+
+
+
+
+
+.visualSlide > .status_bar {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+
+
+    z-index: 9;
+    right: 150px;
+}
+.visualSlide > input ~ .status_bar > div {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    
+    transform: scale(0.8);
+    transition: 0.25s transform, 0.25s background-color;
+}
+.visualSlide > input ~ .status_bar > div > label.sub {
+    z-index: -2;
+}
+.visualSlide > input ~ .status_bar > div:hover {transform: scale(0.9);}
+.visualSlide > input ~ .status_bar > div:active {transform: scale(0.7);}
+.visualSlide > input ~ .status_bar > div > label {
+    position: absolute;
+    display: block;
+    width: 50px;
+    height: 50px;
+    z-index: 1;
+}
+.visualSlide > #slide_3-1:checked ~ 
+.status_bar > .slide_3-1 > label:nth-child(1) {z-index: -1;}
+.visualSlide > #slide_3-1_copy:checked ~ 
+.status_bar > .slide_3-1 > label:nth-child(2) {z-index: -1;}
+
+.visualSlide > #slide_3-1:checked ~ .status_bar > .slide_3-1,
+.visualSlide > #slide_3-1_copy:checked ~ .status_bar > .slide_3-1,
+.visualSlide > #slide_2-1:checked ~ .status_bar > .slide_3-1 {
+    background-color: rgb(0, 115, 255);
+}
+.visualSlide > #slide_1-2:checked ~ 
+.status_bar > .slide_1-2 > label:nth-child(1) {z-index: -1;}
+.visualSlide > #slide_1-2_copy:checked ~ 
+.status_bar > .slide_1-2 > label:nth-child(2) {z-index: -1;}
+
+.visualSlide > #slide_1-2:checked ~ .status_bar > .slide_1-2,
+.visualSlide > #slide_1-2_copy:checked ~ .status_bar > .slide_1-2 {
+    background-color: rgb(0, 115, 255);
+}
+
+.visualSlide > #slide_2-3:checked ~ 
+.status_bar > .slide_2-3 > label:nth-child(1) {z-index: -1;}
+.visualSlide > #slide_2-3_copy:checked ~ 
+.status_bar > .slide_2-3 > label:nth-child(2) {z-index: -1;}
+
+.visualSlide > #slide_2-3:checked ~ .status_bar > .slide_2-3,
+.visualSlide > #slide_2-3_copy:checked ~ .status_bar > .slide_2-3 {
+    background-color: rgb(0, 115, 255);
+}
+
+@media (max-width: 1200px) {
+    /* * {
+        background-color: aquamarine; 
+    } */
+    body .logo {
+            
+        width: 65px;
+        height: 65px;
+        background-image: url('../resource/logo_symbol.png');
+        background-size:cover;
+
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    body .menu_list,
+    body label[for="utilites_checked"] {
+        display: none !important;
+    }
+    body .logo {
+        margin: 0;
+    }
+}
+
+
+/* ============================= */
+
+#historyPage .history .inner > .tab-menu {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    margin-top: 20px;
+}
+
+#historyPage .history .inner > .tab-menu > span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-size: 40px;
+    padding: 10px;
+
+
+    color: #7e7e7e;
+    box-shadow: 1px -1px 1px 0px #444444;
+    border-radius: 10px 10px 0px 0px;
+}
+#historyPage .history .inner > .tab-menu > span.active {
+    color: black;
+    font-weight: 600;
+}
+
+#historyPage .history .contentSection,
+#historyPage .history .contentSection .datefilter{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    width: 100%;
+    height: 600px;
+}
+#historyPage .history .contentSection {
+    box-shadow: 1px -1px 2px 0px black;
+    
+}
+#historyPage .history .contentSection .datefilter {display: none;}
+#historyPage .history .contentSection .datefilter.active {display: flex;}
+#historyPage .history .contentSection .item_list {
+    display: flex;
+    flex-direction: column;
+    width: 56%;
+
+    overflow-y: scroll;
+}
+
+#historyPage .history .contentSection .item_list > div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    /* flex */
+
+    height: 50px;
+    box-shadow: 0px 0px 2px 0px black;
+    border-radius: 20px;
+}
+
+#historyPage .history .contentSection .item_list > div > .date {
+    display: flex;
+    justify-content: center;
+    width: 10%;
+}
+#historyPage .history .contentSection .item_list > div > .text {
+    width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    margin-left: 20px;
+}
+#historyPage .history .contentSection .item_list > div > .btnList {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+}
+
+#historyPage .history .contentSection .img {
+    width: 40%;
+    border: 1px solid black;
+}
+#historyPage .history_window {
+    /* display: flex; */
+    flex-direction: column;
+}
+#historyPage .history_window button, 
+#historyPage .history_window input, 
+#historyPage .history_window textarea {
+    padding: 10px;
+}
+#historyPage .history_window > div > h3 {
+    margin-bottom: 30px;
+}
+
+
+#propertiesPage .section_layout_type1 .tab-menu-pages{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+}
+#propertiesPage .section_layout_type1 .tab-menu-pages > .pageStatus {
+    display: flex;
+    flex-direction: row;
+    align-items: center;;
+    height: 50px;
+    font-size: 19px;
+}
+#propertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span{
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#propertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span.active{
+    background-color: black;
+    color: white;
+}
+#propertiesPage .section_layout_type1 .contentSection .item_list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+#propertiesPage .section_layout_type1 .album > .item_list > .page {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+#propertiesPage .section_layout_type1 .album > .item_list > .page > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* flex */
+
+    width: 300px;
+    height: 330px;
+    margin: 0 10px;
+
+    overflow: hidden;
+}
+#propertiesPage .section_layout_type1 .album > .item_list > .page > div > img {
+    width: 300px;
+    height: 300px;
+    border: 1px solid black;
+    border-radius: 20px;
+    object-fit: cover;
+}
+#propertiesPage .section_layout_type1 .album > .item_list > .page > div > img.noImage {
+    font-size: xx-large;
+    z-index: 9;
+}
+
+#propertiesPage .section_layout_type1 .album > .item_list > .page > div > span {
+    font-size: 24px;
+}
+
+#propertiesPage .section_layout_type1 .page_bar {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+}
+
+#propertiesPage .section_layout_type1 .page_bar > a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+}

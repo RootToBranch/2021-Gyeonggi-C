@@ -2,6 +2,7 @@
 
 /**/
 !/htdocs/
+!/htdocs/**/
 
 # Ignore files with specific extensions
 
