@@ -183,9 +183,12 @@
                 <div class="type album">
                     <div class="item_list">
                         <div class="page">
-                            <?php foreach ($list as $value): ?>
+                            <?php 
+                                foreach ($list as $value): 
+                                    $imgSrc = "data:image/jpeg;base64," . base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); 
+                            ?>
                                 <div data-id="${ccbaKdcd}_${ccbaCtcd}_${ccbaAsno}">
-                                    <img src="data:image/jpeg;base64,<?php echo base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); ?>" alt="img" class="">
+                                    <img src="<?= $imgSrc ?>" alt="img" class="">
                                     <span><?= $value->ccbaMnm1 ?></span>
                                 </div>
                             <?php endforeach; ?>
