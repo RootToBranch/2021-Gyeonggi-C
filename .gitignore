@@ -1,0 +1,11 @@
+
+
+/**/
+
+# Ignore files with specific extensions
+
+*.bat
+*.txt
+*.exe
+*.ini
+*.log
