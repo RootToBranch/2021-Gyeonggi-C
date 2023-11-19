@@ -1,8 +1,6 @@
-
-
 # Ignore all folders except "htdocs"
 
-/**/
+**
 !/htdocs/
 !/htdocs/**/
 
@@ -10,10 +8,3 @@
 
 !/nihcImage/
 
-# Ignore files with specific extensions
-
-*.bat
-*.txt
-*.exe
-*.ini
-*.log
