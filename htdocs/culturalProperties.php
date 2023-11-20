@@ -20,8 +20,22 @@
     // $startPage = 
     // $endPage = 
 
+    if($page < 1 || $page > $totalPage) go("/", "존재하지 않는 페이지입니다.");
 
-    $startIdx = $page - 1;
+    $minNum = 0;
+    $maxNum = 0;
+    if($page <= PAGE_CNT) { // 만약 페이지 값이 PAGE_CNT보다 작다면
+        // 기본 값으로 설정
+        $minNum = 1; 
+        $maxNum = PAGE_CNT;
+    } else { // 그 이외라면
+        // PAGE_CNT을 이용해 $minNum과 $maxNum을 구한다
+        $maxNum = ceil($page / PAGE_CNT) * PAGE_CNT; 
+        if($maxNum > $totalPage) $maxNum = $totalPage; // 최대 페이지 값 지정
+        $minNum = $maxNum - (PAGE_CNT - 1);
+    }
+
+    $startIdx = ($page - 1) * CONTENT_CNT;
 
     $list = fetchAll("SELECT L.ccbaMnm1, D.imageUrl 
                 FROM nihlist as L
@@ -31,14 +45,13 @@
                     L.ccbaAsno = D.ccbaAsno AND
                     L.ccbaCtcd = D.ccbaCtcd
                 LIMIT $startIdx, 8");
-    // $endIdx = 
-
     
     // dd($totalCnt);
 
 ?>
 
 <body id="propertiesPage">
+    
     <input type="checkbox" id="main_menu_1" hidden>
     <input type="checkbox" class="main_menu_checkbox" id="main_menu_2" hidden>
     <input type="checkbox" class="main_menu_checkbox" id="main_menu_3" hidden>
@@ -50,7 +63,6 @@
     <div class="window lang_change_window">
         <div class="lang_change_window_inner">
             <h3>언어설정</h3>
-            
             <div class="select_list">
                 <a href="#">한국어</a>
                 <a href="#">English</a>
@@ -171,7 +183,7 @@
             </div>
             <div class="tab-menu-pages">
                 <div class="pageStatus">
-                    0p / 0p (총 0건)
+                    <?= $page ?>p / <?= $totalPage ?>p (총 <?= $totalCnt ?>건)
                 </div>
                 <div class="tab-menu">
                     <span class="active">앨범</span>
@@ -213,11 +225,17 @@
                     </div>
                 </div> -->
                 <div class="page_bar">
-                    <a class="pageNum" href="?page=1">1</a>
-                    <a class="pageNum" href="?page=2">2</a>
-                    <a class="pageNum" href="?page=3">3</a>
-                    <a class="pageNum" href="?page=4">4</a>
-                    <a class="pageNum" href="?page=5">5</a>
+                    <a class="fa fas fa-chevron-left 
+                    <?= $minNum - 1 === 0 ? 'disabled' : '' ?>" 
+                            href="?page=<?= $minNum - 1 ?>">
+                    </a>
+                    <?php for ($i = $minNum; $i <= $maxNum; $i++): ?>
+                        <a class="pageNum" href="?page=<?= $i ?>"><?= $i ?></a>
+                    <?php endfor; ?>
+                    <a class="fa fas fa-chevron-right 
+                    <?= $maxNum + 1 === $totalPage ? 'disabled' : '' ?>" 
+                            href="?page=<?= $maxNum + 1 ?>">
+                    </a>
                 </div>
             </div>
         </div>
