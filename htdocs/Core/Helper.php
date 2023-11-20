@@ -20,7 +20,7 @@ function go($url, $msg)
 
 function back($msg)
 {
-    echo "<script>alert('$msg');history.back();";
+    echo "<script>alert('$msg');history.back();</script>";
     exit;
 }
 
