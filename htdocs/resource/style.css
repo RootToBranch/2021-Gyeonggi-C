@@ -854,42 +854,42 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
 }
 
 
-#propertiesPage .section_layout_type1 .tab-menu-pages{
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages{
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 50px;
 }
-#propertiesPage .section_layout_type1 .tab-menu-pages > .pageStatus {
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages > .pageStatus {
     display: flex;
     flex-direction: row;
     align-items: center;;
     height: 50px;
     font-size: 19px;
 }
-#propertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span{
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span{
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
 }
 
-#propertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span.active{
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span.active{
     background-color: black;
     color: white;
 }
-#propertiesPage .section_layout_type1 .contentSection .item_list {
+#culturalPropertiesPage .section_layout_type1 .contentSection .item_list {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
-#propertiesPage .section_layout_type1 .album > .item_list > .page {
+#culturalPropertiesPage .section_layout_type1 .album > .item_list > .page {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     flex-wrap: wrap;
     margin-top: 20px;
 }
-#propertiesPage .section_layout_type1 .album > .item_list > .page > div{
+#culturalPropertiesPage .section_layout_type1 .album > .item_list > .page > div{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -902,29 +902,29 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
 
     overflow: hidden;
 }
-#propertiesPage .section_layout_type1 .album > .item_list > .page > div > img {
+#culturalPropertiesPage .section_layout_type1 .album > .item_list > .page > div > img {
     width: 300px;
     height: 300px;
     border: 1px solid black;
     border-radius: 20px;
     object-fit: cover;
 }
-#propertiesPage .section_layout_type1 .album > .item_list > .page > div > img.noImage {
+#culturalPropertiesPage .section_layout_type1 .album > .item_list > .page > div > img.noImage {
     font-size: xx-large;
     z-index: 9;
 }
 
-#propertiesPage .section_layout_type1 .album > .item_list > .page > div > span {
+#culturalPropertiesPage .section_layout_type1 .album > .item_list > .page > div > span {
     font-size: 24px;
 }
 
-#propertiesPage .section_layout_type1 .page_bar {
+#culturalPropertiesPage .section_layout_type1 .page_bar {
     display: flex;
     justify-content: center;
     height: 50px;
 }
 
-#propertiesPage .section_layout_type1 .page_bar > a {
+#culturalPropertiesPage .section_layout_type1 .page_bar > a {
     display: flex;
     justify-content: center;
     align-items: center;
