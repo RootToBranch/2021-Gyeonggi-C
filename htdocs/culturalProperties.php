@@ -13,14 +13,43 @@
 
     define("CONTENT_CNT", 8);
     define("PAGE_CNT", 10);
+    $categoryList = ["전통 공연·예술", "전통기술", "전통지식", "구전 전통 및 표현", "전통 생활관습",
+                    "의례·의식", "전통 놀이·무예"];
 
-    $page = isset($_GET['page']) ? $_GET['page'] : 1;
-    $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihList")->cnt;
-    $totalPage = ceil($totalCnt / CONTENT_CNT);
-    // $startPage = 
-    // $endPage = 
+    $page = isset($_GET['page']) ? $_GET['page'] : 1; //page 값
+    $category = isset($_GET['category']) ? $_GET['category'] : null; //category 값
+    
+    $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihList")->cnt; //기본적으로는 전체 페이지를 구함
 
-    if($page < 1 || $page > $totalPage) go("/", "존재하지 않는 페이지입니다.");
+    $listSql = "SELECT L.ccbaMnm1, D.imageUrl
+        FROM nihlist as L
+        LEFT JOIN nihdetail as D
+        ON 
+            L.ccbaKdcd = D.ccbaKdcd AND
+            L.ccbaAsno = D.ccbaAsno AND
+            L.ccbaCtcd = D.ccbaCtcd
+            "; 
+            
+    if(!is_null($category)) { //카테고리가 지정됐을때
+        $categoryName = $categoryList[$category];
+        $listSql .= " WHERE bcodeName = '$categoryName'"; //카테고리를 추가
+        $totalCnt = fetch("SELECT COUNT(*) as cnt 
+                                FROM nihList as L
+                                LEFT JOIN nihdetail as D
+                                ON
+                                    L.ccbaKdcd = D.ccbaKdcd AND
+                                    L.ccbaAsno = D.ccbaAsno AND
+                                    L.ccbaCtcd = D.ccbaCtcd
+                                WHERE bcodeName = '$categoryName'")->cnt; //지정한 카테고리 항목 수를
+    }
+
+    $startIdx = ($page - 1) * CONTENT_CNT;
+    $listSql .= " LIMIT $startIdx, 8"; //페이지네이션
+
+    
+    $totalPage = ceil($totalCnt / CONTENT_CNT); //totalCnt의 계산이 끝나는 직후 totalPage를 구함
+    if($page < 1 || $page > $totalPage) go("/", "존재하지 않는 페이지입니다."); //없는 페이지 감지
+
 
     $minNum = 0;
     $maxNum = 0;
@@ -31,22 +60,16 @@
     } else { // 그 이외라면
         // PAGE_CNT을 이용해 $minNum과 $maxNum을 구한다
         $maxNum = ceil($page / PAGE_CNT) * PAGE_CNT; 
-        if($maxNum > $totalPage) $maxNum = $totalPage; // 최대 페이지 값 지정
         $minNum = $maxNum - (PAGE_CNT - 1);
     }
+    if($maxNum > $totalPage) $maxNum = $totalPage; // 최대 페이지 값 지정
 
-    $startIdx = ($page - 1) * CONTENT_CNT;
+    var_dump($minNum);
+    var_dump($maxNum);
 
-    $listSql = "SELECT L.ccbaMnm1, D.imageUrl 
-                FROM nihlist as L
-                LEFT JOIN nihdetail as D
-                ON 
-                    L.ccbaKdcd = D.ccbaKdcd AND
-                    L.ccbaAsno = D.ccbaAsno AND
-                    L.ccbaCtcd = D.ccbaCtcd";
-    $listSql .= ' WHERE bcodeName = "전통 공연·예술"';
-    $listSql .= " LIMIT $startIdx, 8";
-                
+
+
+
     $list = fetchAll($listSql);
     
     // dd($totalCnt);
@@ -114,8 +137,13 @@
                     <?= $minNum - 1 === 0 ? 'disabled' : '' ?>" 
                             href="?page=<?= $minNum - 1 ?>">
                     </a>
-                    <?php for ($i = $minNum; $i <= $maxNum; $i++): ?>
-                        <a class="pageNum" href="?page=<?= $i ?>"><?= $i ?></a>
+                    <?php 
+                        for ($i = $minNum; $i <= $maxNum; $i++): 
+                            
+                            if(!is_null($category)) $href = "?category=$category&page=$i";
+                            else $href = "?page=$i";
+                        ?>
+                        <a class="pageNum" href="<?= $href ?>"><?= $i ?></a>
                     <?php endfor; ?>
                     <a class="fa fas fa-chevron-right 
                     <?= $maxNum + 1 === $totalPage ? 'disabled' : '' ?>" 
