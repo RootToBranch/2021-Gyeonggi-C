@@ -86,12 +86,12 @@
                 </div>
                 <div class="sub_menu_3">
                     <input type="checkbox" id="sub_menu_3_7" hidden>
-                    <a href="#">전통 공연·예술</a>
-                    <a href="#">전통기술</a>
-                    <a href="#">전통지식</a>
-                    <a href="#">구전 전통 및 표현</a>
-                    <a href="#">전통 생활관습</a>
-                    <a href="#">의례·의식</a>
+                    <a href="/culturalProperties.php?category=1">전통 공연·예술</a>
+                    <a href="/culturalProperties.php?category=2">전통기술</a>
+                    <a href="/culturalProperties.php?category=3">전통지식</a>
+                    <a href="/culturalProperties.php?category=4">구전 전통 및 표현</a>
+                    <a href="/culturalProperties.php?category=5">전통 생활관습</a>
+                    <a href="/culturalProperties.php?category=6">의례·의식</a>
                     <label for="sub_menu_3_7"><a href="#">전통 놀이·무예</a></label>
                     <a href="#">전체 현황</a>
                 </div>
