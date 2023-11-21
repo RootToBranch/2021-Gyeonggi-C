@@ -484,7 +484,6 @@ class CulturalProperties
   {
     let tabMenu = document.querySelector(".tab-menu");
     let span = tabMenu.getElementsByTagName("span");
-    console.log(span) 
     tabMenu.onclick = (e) => {
       if(!e.target.classList.contains("active"))
         [].forEach.call(span, (child => child.classList.toggle("active")))
