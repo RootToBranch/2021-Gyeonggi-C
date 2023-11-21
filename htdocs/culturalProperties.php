@@ -133,9 +133,13 @@
                     </div>
                 </div> -->
                 <div class="page_bar">
-                    <a class="fa fas fa-chevron-left 
+                    <a class="fa fas fa-angle-double-left 
                     <?= $minNum - 1 === 0 ? 'disabled' : '' ?>" 
                             href="?page=<?= $minNum - 1 ?>">
+                    </a>
+                    <a class="fa fas fa-angle-left 
+                    <?= $page - 1 === 0 ? 'disabled' : '' ?>" 
+                            href="?page=<?= $page - 1 ?>">
                     </a>
                     <?php 
                         for ($i = $minNum; $i <= $maxNum; $i++): 
@@ -145,8 +149,12 @@
                         ?>
                         <a class="pageNum" href="<?= $href ?>"><?= $i ?></a>
                     <?php endfor; ?>
-                    <a class="fa fas fa-chevron-right 
-                    <?= $maxNum + 1 === $totalPage ? 'disabled' : '' ?>" 
+                    <a class="fa fas fa-angle-right
+                    <?= $page + 1 >= $totalPage ? 'disabled' : '' ?>" 
+                            href="?page=<?= $page + 1 ?>">
+                    </a>
+                    <a class="fa fas fa-angle-double-right 
+                    <?= $maxNum === $totalPage ? 'disabled' : '' ?>" 
                             href="?page=<?= $maxNum + 1 ?>">
                     </a>
                 </div>
