@@ -93,7 +93,7 @@
                     <a href="/culturalProperties.php?category=5">전통 생활관습</a>
                     <a href="/culturalProperties.php?category=6">의례·의식</a>
                     <a href="/culturalProperties.php?category=7">전통 놀이·무예</a>
-                    <a href="#">전체 현황</a>
+                    <a href="/culturalProperties.php?category=all">전체 현황</a>
                 </div>
                 <div class="sub_menu_4">
                     <!-- <input type="checkbox" id="sub_menu_4_1" hidden>
