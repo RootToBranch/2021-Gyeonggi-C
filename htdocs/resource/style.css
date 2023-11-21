@@ -863,19 +863,42 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
 #culturalPropertiesPage .section_layout_type1 .tab-menu-pages > .pageStatus {
     display: flex;
     flex-direction: row;
-    align-items: center;;
+    align-items: center;
     height: 50px;
     font-size: 19px;
 }
-#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span{
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > a{
     padding: 10px;
     border: 1px solid black;
     border-radius: 5px;
+    pointer-events: all;
+    margin-right: 3px;
 }
 
-#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > span.active{
+#culturalPropertiesPage .section_layout_type1 .tab-menu-pages .tab-menu > a.active{
     background-color: black;
     color: white;
+    pointer-events: none;
+}
+#culturalPropertiesPage .addBtn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    
+    font-size: 16px;
+    letter-spacing: -1px;
+    color: white;
+    background-color: rgb(71, 188, 235);
+
+    float: right;
+    pointer-events: all;
+    margin-right: 5px;
+    cursor: pointer;
 }
 #culturalPropertiesPage .section_layout_type1 .contentSection .item_list {
     display: flex;
@@ -883,7 +906,9 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
     width: 100%;
 }
 #culturalPropertiesPage .section_layout_type1 .type {display: none;}
-#culturalPropertiesPage .section_layout_type1 .type.active {display: flex;}
+#culturalPropertiesPage .section_layout_type1 .type.active {
+    display: flex;
+}
 #culturalPropertiesPage .section_layout_type1 .album > .item_list > .page {
     display: flex;
     flex-direction: row;
@@ -918,6 +943,48 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
 
 #culturalPropertiesPage .section_layout_type1 .album > .item_list > .page > div > span {
     font-size: 24px;
+}
+
+
+#culturalPropertiesPage .section_layout_type1 .type.list > .item_list > .page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 20px;
+
+}
+#culturalPropertiesPage .section_layout_type1 .type.list > .item_list > .page > div{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    /* flex */
+
+    width: 100%;
+    height: 50px;
+
+    overflow: hidden;
+}
+#culturalPropertiesPage .section_layout_type1 .type.list > 
+.item_list > .page > div > img { display: none; }
+
+#culturalPropertiesPage .section_layout_type1 .type.list .page span,
+#culturalPropertiesPage .section_layout_type1 .type.list .page span {
+    display: flex;
+    justify-content: center;
+}
+#culturalPropertiesPage .section_layout_type1 .type.list .key {width: 50px;}
+#culturalPropertiesPage .section_layout_type1 .type.list .ccbaMnm1 {width: 250px;}
+#culturalPropertiesPage .section_layout_type1 .type.list .ccmaName {width: 130px;}
+#culturalPropertiesPage .section_layout_type1 .type.list .crltsnoNm,
+#culturalPropertiesPage .section_layout_type1 .type.list .ccbaKdcd,
+#culturalPropertiesPage .section_layout_type1 .type.list .ccbaCtcd {width: 64px;}
+#culturalPropertiesPage .section_layout_type1 .type.list .ccbaAsno {width: 80px;}
+
+#culturalPropertiesPage .section_layout_type1 .type.list .item .ccbaMnm1:hover {
+    text-decoration: underline;
+    cursor:pointer;
 }
 
 #culturalPropertiesPage .section_layout_type1 .page_bar {
