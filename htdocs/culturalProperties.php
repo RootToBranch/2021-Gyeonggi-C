@@ -10,15 +10,18 @@
         변수
 
     */
-
-    define("CONTENT_CNT", 8);
-    define("PAGE_CNT", 10);
+    $categoryName = "전체";
     $categoryList = ["전통 공연·예술", "전통기술", "전통지식", "구전 전통 및 표현", "전통 생활관습",
                     "의례·의식", "전통 놀이·무예"];
 
     $page = isset($_GET['page']) ? $_GET['page'] : 1; //page 값
     $category = isset($_GET['category']) ? $_GET['category'] : null; //category 값
+    $type = isset($_GET['type']) ? $_GET['type'] : "album"; //type 값
     
+
+    define("CONTENT_CNT", $type === "album" ? 8 : 10);
+    define("PAGE_CNT", 10);
+
     $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihList")->cnt; //기본적으로는 전체 페이지를 구함
 
     $listSql = "SELECT L.ccbaMnm1, D.imageUrl
@@ -30,8 +33,8 @@
             L.ccbaCtcd = D.ccbaCtcd
             "; 
             
-    if(!is_null($category)) { //카테고리가 지정됐을때
-        $categoryName = $categoryList[$category];
+    if(!is_null($category) && ($category != "all")) { //카테고리가 지정됐을때
+        $categoryName = $categoryList[$category - 1];
         $listSql .= " WHERE bcodeName = '$categoryName'"; //카테고리를 추가
         $totalCnt = fetch("SELECT COUNT(*) as cnt 
                                 FROM nihList as L
@@ -41,13 +44,18 @@
                                     L.ccbaAsno = D.ccbaAsno AND
                                     L.ccbaCtcd = D.ccbaCtcd
                                 WHERE bcodeName = '$categoryName'")->cnt; //지정한 카테고리 항목 수를
+    } else if (!is_null($category)) {
+        $category = "all";
+    } else {
+        go("/", "존재하지 않는 카테고리입니다.");
     }
 
     $startIdx = ($page - 1) * CONTENT_CNT;
-    $listSql .= " LIMIT $startIdx, 8"; //페이지네이션
+    $listSql .= " LIMIT $startIdx, " . CONTENT_CNT; 
 
     
     $totalPage = ceil($totalCnt / CONTENT_CNT); //totalCnt의 계산이 끝나는 직후 totalPage를 구함
+    
     if($page < 1 || $page > $totalPage) go("/", "존재하지 않는 페이지입니다."); //없는 페이지 감지
 
 
@@ -64,12 +72,6 @@
     }
     if($maxNum > $totalPage) $maxNum = $totalPage; // 최대 페이지 값 지정
 
-    var_dump($minNum);
-    var_dump($maxNum);
-
-
-
-
     $list = fetchAll($listSql);
     
     // dd($totalCnt);
@@ -85,7 +87,7 @@
                     <p>
                         <a href="./index.php">HOME</a> > 
                         <a href="./culturalProperties.php">무형문화재 현황</a> > 
-                        <a href="./culturalProperties.php">전체</a> 
+                        <a href="./culturalProperties.php"><?= $categoryName ?></a> 
                     </p>
                 </div>
             </div>
@@ -151,27 +153,26 @@
                 <div class="page_bar">
                     <a class="fa fas fa-angle-double-left 
                     <?= $minNum - 1 === 0 ? 'disabled' : '' ?>" 
-                            href="?page=<?= $minNum - 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $minNum - 1 ?>">
                     </a>
                     <a class="fa fas fa-angle-left 
                     <?= $page - 1 === 0 ? 'disabled' : '' ?>" 
-                            href="?page=<?= $page - 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $page - 1 ?>">
                     </a>
                     <?php 
                         for ($i = $minNum; $i <= $maxNum; $i++): 
-                            
                             if(!is_null($category)) $href = "?category=$category&page=$i";
                             else $href = "?page=$i";
-                        ?>
+                    ?>
                         <a class="pageNum" href="<?= $href ?>"><?= $i ?></a>
                     <?php endfor; ?>
                     <a class="fa fas fa-angle-right
-                    <?= $page + 1 >= $totalPage ? 'disabled' : '' ?>" 
-                            href="?page=<?= $page + 1 ?>">
+                    <?= $page >= $totalPage ? 'disabled' : '' ?>" 
+                            href="?category=<?= $category ?>&page=<?= $page + 1 ?>">
                     </a>
                     <a class="fa fas fa-angle-double-right 
                     <?= $maxNum === $totalPage ? 'disabled' : '' ?>" 
-                            href="?page=<?= $maxNum + 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $maxNum + 1 ?>">
                     </a>
                 </div>
             </div>
