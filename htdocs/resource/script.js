@@ -336,7 +336,7 @@ class CulturalProperties
 
     // this.referesh();
     // this.getInfo_All()
-    this.events();
+    // this.events();
   }
 
   get defaultUrl()
@@ -479,15 +479,6 @@ class CulturalProperties
       </div>
     `;
     return returnValue;
-  }
-  events()
-  {
-    let tabMenu = document.querySelector(".tab-menu");
-    let span = tabMenu.getElementsByTagName("span");
-    tabMenu.onclick = (e) => {
-      if(!e.target.classList.contains("active"))
-        [].forEach.call(span, (child => child.classList.toggle("active")))
-    }
   }
   
 }
