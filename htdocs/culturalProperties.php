@@ -24,14 +24,20 @@
 
     $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihList")->cnt; //기본적으로는 전체 페이지를 구함
 
-    $listSql = "SELECT L.ccbaMnm1, D.imageUrl
-        FROM nihlist as L
-        LEFT JOIN nihdetail as D
-        ON 
-            L.ccbaKdcd = D.ccbaKdcd AND
-            L.ccbaAsno = D.ccbaAsno AND
-            L.ccbaCtcd = D.ccbaCtcd
-            "; 
+    $listSql = "SELECT L.ccbaMnm1, D.imageUrl,
+                       L.ccbaMnm1,
+                       L.ccmaName,
+                       L.crltsnoNm,
+                       L.ccbaKdcd,
+                       L.ccbaAsno,
+                       L.ccbaCtcd
+                FROM nihlist as L
+                LEFT JOIN nihdetail as D
+                ON 
+                    L.ccbaKdcd = D.ccbaKdcd AND
+                    L.ccbaAsno = D.ccbaAsno AND
+                    L.ccbaCtcd = D.ccbaCtcd
+                "; 
             
     if(!is_null($category) && ($category != "all")) { //카테고리가 지정됐을때
         $categoryName = $categoryList[$category - 1];
@@ -44,7 +50,7 @@
                                     L.ccbaAsno = D.ccbaAsno AND
                                     L.ccbaCtcd = D.ccbaCtcd
                                 WHERE bcodeName = '$categoryName'")->cnt; //지정한 카테고리 항목 수를
-    } else if (!is_null($category)) {
+    } else if (is_null($category) || $category == "all") {
         $category = "all";
     } else {
         go("/", "존재하지 않는 카테고리입니다.");
@@ -87,7 +93,7 @@
                     <p>
                         <a href="./index.php">HOME</a> > 
                         <a href="./culturalProperties.php">무형문화재 현황</a> > 
-                        <a href="./culturalProperties.php"><?= $categoryName ?></a> 
+                        <a href="./culturalProperties.php?category=<?= $category ?>&page=<?= $page ?>&type=<?= $type ?>"><?= $categoryName ?></a> 
                     </p>
                 </div>
             </div>
@@ -96,18 +102,21 @@
                     <?= $page ?>p / <?= $totalPage ?>p (총 <?= $totalCnt ?>건)
                 </div>
                 <div class="tab-menu">
-                    <span class="active">앨범</span>
-                    <span>목록</span>
+                    <a href="/culturalCreate.php" class="addBtn btn-primary">등록</a>
+                    <a href="?category=<?= $category ?>&type=album" class="<?= $type == 'album' ? 'active' : '' ?>">앨범</a>
+                    <a href="?category=<?= $category ?>&type=list" class="<?= $type == 'list' ? 'active' : '' ?>">목록</a>
                 </div>
-              
             </div>
             <div class="contentSection">
-                <div class="type album active">
+                <div class="type album <?= $type == 'album' ? 'active' : '' ?>">
                     <div class="item_list">
                         <div class="page">
                             <?php 
                                 foreach ($list as $value): 
-                                    $imgSrc = "data:image/jpeg;base64," . base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); 
+                                    $imgSrc;
+                                    if(isset($value->imageUrl) && $value->imageUrl != "")
+                                        $imgSrc = "data:image/jpeg;base64," . base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); 
+                                    else $imgSrc = "";
                             ?>
                                 <div data-id="${ccbaKdcd}_${ccbaCtcd}_${ccbaAsno}">
                                     <img src="<?= $imgSrc ?>" alt="img" class="">
@@ -118,16 +127,28 @@
                         
                     </div>
                 </div>  
-                <div class="type list">
+                <div class="type list <?= $type == 'list' ? 'active' : '' ?>">
                     <div class="item_list">
                         <div class="page">
-                            <?php 
-                                foreach ($list as $value): 
-                                    $imgSrc = "data:image/jpeg;base64," . base64_encode(file_get_contents('../nihcImage/' . $value->imageUrl )); 
-                            ?>
-                                <div data-id="${ccbaKdcd}_${ccbaCtcd}_${ccbaAsno}">
-                                    <img src="<?= $imgSrc ?>" alt="img" class="">
-                                    <span><?= $value->ccbaMnm1 ?></span>
+                            <div class="title">
+                                <span class="key">순번</span>
+                                <span class="ccbaMnm1">문화재명</span>
+                                <span class="ccmaName">문화재종목</span>
+                                <span class="crltsnoNm">지정호수</span>
+                                <span class="ccbaKdcd">종목코드</span>
+                                <span class="ccbaAsno">지정번호</span>
+                                <span class="ccbaCtcd">시도코드</span>
+                            </div>
+                            <!-- ${ccbaKdcd}_${ccbaCtcd}_${ccbaAsno} -->
+                            <?php foreach ($list as $key => $value): ?>
+                                <div class="item">
+                                    <span class="key"><?= $key + 1 + (($page - 1) * 10) ?></span>
+                                    <a class="ccbaMnm1" href="/culturalEdit.php?id=<?= $value->ccbaKdcd ?>_<?= $value->ccbaAsno ?>_<?= $value->ccbaCtcd ?>"><?= $value->ccbaMnm1 ?></a>
+                                    <span class="ccmaName"><?= $value->ccmaName ?></span>
+                                    <span class="crltsnoNm"><?= $value->crltsnoNm ?></span>
+                                    <span class="ccbaKdcd"><?= $value->ccbaKdcd ?></span>
+                                    <span class="ccbaAsno"><?= $value->ccbaAsno ?></span>
+                                    <span class="ccbaCtcd"><?= $value->ccbaCtcd ?></span>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -153,26 +174,26 @@
                 <div class="page_bar">
                     <a class="fa fas fa-angle-double-left 
                     <?= $minNum - 1 === 0 ? 'disabled' : '' ?>" 
-                            href="?category=<?= $category ?>&page=<?= $minNum - 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $minNum - 1 ?>&type=<?= $type ?>">
                     </a>
                     <a class="fa fas fa-angle-left 
                     <?= $page - 1 === 0 ? 'disabled' : '' ?>" 
-                            href="?category=<?= $category ?>&page=<?= $page - 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $page - 1 ?>&type=<?= $type ?>">
                     </a>
                     <?php 
                         for ($i = $minNum; $i <= $maxNum; $i++): 
                             if(!is_null($category)) $href = "?category=$category&page=$i";
                             else $href = "?page=$i";
                     ?>
-                        <a class="pageNum" href="<?= $href ?>"><?= $i ?></a>
+                        <a class="pageNum" href="<?= $href ?>&type=<?= $type ?>"><?= $i ?></a>
                     <?php endfor; ?>
                     <a class="fa fas fa-angle-right
                     <?= $page >= $totalPage ? 'disabled' : '' ?>" 
-                            href="?category=<?= $category ?>&page=<?= $page + 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $page + 1 ?>&type=<?= $type ?>">
                     </a>
                     <a class="fa fas fa-angle-double-right 
                     <?= $maxNum === $totalPage ? 'disabled' : '' ?>" 
-                            href="?category=<?= $category ?>&page=<?= $maxNum + 1 ?>">
+                            href="?category=<?= $category ?>&page=<?= $maxNum + 1 ?>&type=<?= $type ?>">
                     </a>
                 </div>
             </div>
