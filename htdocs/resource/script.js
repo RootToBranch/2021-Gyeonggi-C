@@ -3,7 +3,10 @@ class History
   constructor()
   {
     this.uniqueNumberList = [];
-    // this.setStroage(); //최초 실행 코드
+    if(localStorage.getItem("history") === null ||
+      localStorage.getItem("history") === undefined) 
+      this.setStroage(); //최초 실행 코드
+    
     this.referesh();
   }
 
