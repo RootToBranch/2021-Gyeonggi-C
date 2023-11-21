@@ -882,6 +882,8 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
     flex-direction: column;
     width: 100%;
 }
+#culturalPropertiesPage .section_layout_type1 .type {display: none;}
+#culturalPropertiesPage .section_layout_type1 .type.active {display: flex;}
 #culturalPropertiesPage .section_layout_type1 .album > .item_list > .page {
     display: flex;
     flex-direction: row;

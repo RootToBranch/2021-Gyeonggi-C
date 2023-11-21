@@ -331,8 +331,9 @@ class CulturalProperties
     this.totalCnt = 0;
     this.pageStatus = document.querySelector(".pageStatus");
 
-    this.referesh();
+    // this.referesh();
     // this.getInfo_All()
+    this.events();
   }
 
   get defaultUrl()
@@ -475,6 +476,16 @@ class CulturalProperties
       </div>
     `;
     return returnValue;
+  }
+  events()
+  {
+    let tabMenu = document.querySelector(".tab-menu");
+    let span = tabMenu.getElementsByTagName("span");
+    console.log(span) 
+    tabMenu.onclick = (e) => {
+      if(!e.target.classList.contains("active"))
+        [].forEach.call(span, (child => child.classList.toggle("active")))
+    }
   }
   
 }
