@@ -92,7 +92,7 @@
                     <a href="/culturalProperties.php?category=4">구전 전통 및 표현</a>
                     <a href="/culturalProperties.php?category=5">전통 생활관습</a>
                     <a href="/culturalProperties.php?category=6">의례·의식</a>
-                    <label for="sub_menu_3_7"><a href="#">전통 놀이·무예</a></label>
+                    <a href="/culturalProperties.php?category=7">전통 놀이·무예</a>
                     <a href="#">전체 현황</a>
                 </div>
                 <div class="sub_menu_4">
