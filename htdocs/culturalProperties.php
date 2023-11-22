@@ -54,6 +54,7 @@
         $category = "all";
     } else {
         go("/", "존재하지 않는 카테고리입니다.");
+        exit;
     }
 
     $startIdx = ($page - 1) * CONTENT_CNT;

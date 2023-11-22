@@ -5,9 +5,14 @@
     require_once Core . "/db.php";
     require_once Core . "/helper.php";
 
+    if(count($_POST) == 0) {
+        go('/', '잘못된 접근입니다.');
+        exit;
+    }
     if($_FILES[25]['tmp_name'] != "" && 
         substr(($_FILES[25]['type']), 0, 5) != "image") {
         back('이미지 파일만 선택할 수 있습니다.');
+        exit;
     }
     $temp = array_pop($_POST);
     $_POST[25] = $_FILES[25];
@@ -34,7 +39,6 @@
     }
     $sql .= ");";
 
-    var_dump($sql);
     execute($sql);
     // go('/culturalProperties.php', "정상적으로 등록되었습니다.");
     exit;
