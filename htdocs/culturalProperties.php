@@ -22,33 +22,23 @@
     define("CONTENT_CNT", $type === "album" ? 8 : 10);
     define("PAGE_CNT", 10);
 
-    $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihList")->cnt; //기본적으로는 전체 페이지를 구함
+    $totalCnt = fetch("SELECT COUNT(*) as cnt FROM nihdetail")->cnt; //기본적으로는 전체 페이지를 구함
 
-    $listSql = "SELECT L.ccbaMnm1, D.imageUrl,
-                       L.ccbaMnm1,
-                       L.ccmaName,
-                       L.crltsnoNm,
-                       L.ccbaKdcd,
-                       L.ccbaAsno,
-                       L.ccbaCtcd
-                FROM nihlist as L
-                LEFT JOIN nihdetail as D
-                ON 
-                    L.ccbaKdcd = D.ccbaKdcd AND
-                    L.ccbaAsno = D.ccbaAsno AND
-                    L.ccbaCtcd = D.ccbaCtcd
+    $listSql = "SELECT D.ccbaMnm1, 
+                       D.imageUrl,
+                       D.ccmaName,
+                       D.crltsnoNm,
+                       D.ccbaKdcd,
+                       D.ccbaAsno,
+                       D.ccbaCtcd
+                FROM nihdetail as D
                 "; 
             
     if(!is_null($category) && ($category != "all")) { //카테고리가 지정됐을때
         $categoryName = $categoryList[$category - 1];
         $listSql .= " WHERE bcodeName = '$categoryName'"; //카테고리를 추가
         $totalCnt = fetch("SELECT COUNT(*) as cnt 
-                                FROM nihList as L
-                                LEFT JOIN nihdetail as D
-                                ON
-                                    L.ccbaKdcd = D.ccbaKdcd AND
-                                    L.ccbaAsno = D.ccbaAsno AND
-                                    L.ccbaCtcd = D.ccbaCtcd
+                                FROM nihdetail
                                 WHERE bcodeName = '$categoryName'")->cnt; //지정한 카테고리 항목 수를
     } else if (is_null($category) || $category == "all") {
         $category = "all";
