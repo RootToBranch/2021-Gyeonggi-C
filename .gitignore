@@ -3,6 +3,7 @@
 **
 !/htdocs/
 !/htdocs/**/
+!/htdocs/**/*
 
 # Ignore all folders except "nihcImage"
 
