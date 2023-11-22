@@ -1001,19 +1001,22 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
     height: 50px;
 }
 
-#culturalCreatePage .contentSection {
+#culturalCreatePage .contentSection,
+#culturalEditPage .contentSection {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-#culturalCreatePage .contentSection > form {
+#culturalCreatePage .contentSection > form,
+#culturalEditPage .contentSection > form {
     display: flex;
     flex-direction: column;
     align-items: center;
 
 }
 
-#culturalCreatePage .contentSection > form > label{
+#culturalCreatePage .contentSection > form > label,
+#culturalEditPage .contentSection > form > label{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -1022,6 +1025,7 @@ k는 opacity가 활성화 되는 visual image를 알려줌 */
     align-items: center;
 
 }
-#culturalCreatePage .contentSection > form > label > span {
+#culturalCreatePage .contentSection > form > label > span,
+#culturalEditPage .contentSection > form > label > span {
     width: 500px;
 }
