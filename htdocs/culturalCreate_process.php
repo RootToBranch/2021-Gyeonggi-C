@@ -40,7 +40,7 @@
     $sql .= ");";
 
     execute($sql);
-    // go('/culturalProperties.php', "정상적으로 등록되었습니다.");
+    go('/culturalProperties.php', "정상적으로 등록되었습니다.");
     exit;
     // var_dump($_POST);
     // execute($sql);
