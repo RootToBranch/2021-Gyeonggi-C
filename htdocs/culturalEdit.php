@@ -58,7 +58,7 @@
                     <label><span>지정해제여부</span> <input type="text" name="23" value="<?= $result_Arr[23 - 1] ?>"></label>
                     <label><span>지정해제일</span> <input type="text" name="24" value="<?= $result_Arr[24 - 1] ?>"></label>
                     <label><span>이미지</span> <input type="file" name="25" value="<?= $result_Arr[25 - 1] ?> "></label>
-                    <label><span>설명</span> <textarea name="26" id="" cols="30" rows="10"><?= $result_Arr[26 - 1] ?></textarea></label>
+                    <label><span>설명</span> <textarea name="26" cols="30" rows="10"><?= $result_Arr[26 - 1] ?></textarea></label>
                     <input type="hidden" name="action">
                     <div class="btnList">
                         <button type="submit" id="confirmBtn" 

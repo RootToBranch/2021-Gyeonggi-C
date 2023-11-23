@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-    ini_set('display_errors', '1');
     define("__root", $_SERVER["DOCUMENT_ROOT"]);
     define("Core", __root . "/Core");
 
@@ -18,27 +16,35 @@ error_reporting(E_ALL);
     }
     
 
-    var_dump($_POST);
     $action = array_pop($_POST);
     $temp = array_pop($_POST);
     $_POST[25] = $_FILES[25];
     $_POST[26] = $temp;
 
+    $fileName = $filePath = null;
+    if($_POST[25]['full_path'] != "") {
+                
+        $fileName = end(explode('.', $_POST[25]['name'])); 
+        $fileName = uniqid('', true) . '.'. $fileName;
+        $filePath = "../nihcImage/$fileName";
 
-    if($action = "edit") {
-        $listSql = 
-        "SELECT * FROM nihdetail
-            WHERE
-                ccbaKdcd = ? AND
-                ccbaAsno = ? AND
-                ccbaCtcd = ?
-        "; 
-        $listSql_result = fetchAll($listSql, [$_POST[1], $_POST[2], $_POST[3]]);
-        if(!$listSql_result || count($listSql_result) == 0) {
-            go('/culturalProperties.php', "데이터가 존재하지 않습니다.");
-            exit;
-        }
+    }
 
+    $listSql = 
+    "SELECT * FROM nihdetail
+        WHERE
+            ccbaKdcd = ? AND
+            ccbaAsno = ? AND
+            ccbaCtcd = ?
+    "; 
+    $listSql_result = fetchAll($listSql, [$_POST[1], $_POST[2], $_POST[3]]);
+    if(!$listSql_result || count($listSql_result) == 0) {
+        go('/culturalProperties.php', "데이터가 존재하지 않습니다.");
+        exit;
+    }
+    $imageUrl = fetch($listSql, [$_POST[1], $_POST[2], $_POST[3]])->imageUrl;
+    var_dump($action);
+    if($action == "edit") {
         $sql = 
             "UPDATE `nihdetail` SET
                 `ccbaKdcd` = ?,
@@ -72,10 +78,24 @@ error_reporting(E_ALL);
                 ccbaAsno = ? AND
                 ccbaCtcd = ?
             ";
+        if(!is_null($filePath)) {
+            unlink("../nihcImage/{$imageUrl}");
+            move_uploaded_file($_POST[25]['tmp_name'], $filePath);
+            $_POST[25] = $fileName;
+        } else $_POST[25] = $imageUrl;
+        
         execute($sql, [...$_POST, $_POST[1], $_POST[2], $_POST[3]]);
         go('/culturalProperties.php', "정상적으로 수정하였습니다");
         exit;
     } else if($action == "remove") {
-
+        $sql_2 = "DELETE FROM `nihdetail`       
+                    WHERE
+                        ccbaKdcd = ? AND
+                        ccbaAsno = ? AND
+                        ccbaCtcd = ?";
+        unlink("../nihcImage/{$imageUrl}");
+        execute($sql_2, [$_POST[1], $_POST[2], $_POST[3]]);
+        go('/culturalProperties.php', "정상적으로 삭제하였습니다");
+        exit;
     }
     
