@@ -23,7 +23,9 @@
         $value_2 = "";
         if($key == 25) {
             if($_POST[25]['full_path'] != "") {
-                $fileName = uniqid('', true) . '_'. $_POST[25]['name'];
+                
+                $fileName = end(explode('.', $_POST[25]['name'])); 
+                $fileName = uniqid('', true) . '.'. $fileName;
                 $filePath = "../nihcImage/$fileName";
                 $value_2 = $fileName;
     
