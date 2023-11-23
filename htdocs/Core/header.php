@@ -102,8 +102,8 @@
                     <div class="depth3">
                         <a href="#">공연</a>
                         <div class="sub_menu_contents">
-                            <a href="#">월간 공연 일정</a>
-                            <a href="#">연간 공연 일정</a>
+                            <a href="./monthSchedule.php">월간 공연 일정</a>
+                            <a href="./yearSchedule.php">연간 공연 일정</a>
                         </div>
                     </div>
                     <div class="depth3">
